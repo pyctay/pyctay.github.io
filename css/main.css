@@ -1822,7 +1822,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff22d4;
+  background: #39e028;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2659,21 +2659,7 @@ embed {
 .links-of-blogroll-inline .links-of-blogroll-item {
   display: inline-block;
 }
-.site-meta {
-  background: #404344;
-}
-.headband {
-  background: #2d2f30;
-}
-body {
-  background: url("/images/bj.png");
-  background-repeat: repeat-x;
-}
 .sidebar-inner {
-  background: url("/images/sidebar-bg.png");
-  font-family: Microsoft YaHei;
-}
-.header-inner {
   background: url("/images/sidebar-bg.png");
   font-family: Microsoft YaHei;
 }
@@ -2687,30 +2673,6 @@ body {
   background: url("/images/pr.png");
   background-repeat: no-repeat;
   background-position: center;
-}
-.cost {
-  margin-top: 10px;
-  padding: 15px 0 0;
-  border-bottom: 1px dashed #ccc;
-}
-#cost-inner {
-  box-sizing: border-box;
-  text-align: left;
-/*width: 240px;*/
-  font-size: 14.5px;
-  margin-top: 18px;
-  padding: 20px auto;
-  box-shadow: $box-shadow;
-  border-radius: $border-radius;
-}
-.header-inner {
-  box-shadow: 0 2px 7px rgba(0,0,0,0.27);
-}
-.sidebar-inner {
-  box-shadow: 0 2px 7px rgba(0,0,0,0.27);
-}
-.content-wrap {
-  box-shadow: 0 2px 7px rgba(0,0,0,0.27);
 }
 .post-meta {
   font-family: PT Serif;
