@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言Object虽然是一个具体类，但是设计时主要是为了扩展，它的所有非final方法如：equals、hashCode、toString、clone和finalize，这些都有明确的通用约定，都是被设计成要覆盖的，当覆盖这些方法的时候，都要遵守这些通用约定，如果不能的话，会造成一些意料之外的后果。 在覆盖之前要注意一下">
+<meta name="keywords" content="基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="覆盖equals需要注意的事项">
+<meta property="og:url" content="http://lizx.top/2018/01/15/一个Java程序员的自我修养/覆盖equals需要注意的事项/index.html">
+<meta property="og:site_name" content="Pyctay">
+<meta property="og:description" content="前言Object虽然是一个具体类，但是设计时主要是为了扩展，它的所有非final方法如：equals、hashCode、toString、clone和finalize，这些都有明确的通用约定，都是被设计成要覆盖的，当覆盖这些方法的时候，都要遵守这些通用约定，如果不能的话，会造成一些意料之外的后果。 在覆盖之前要注意一下几种情况在不合适的覆盖equals时，会导致很严重的后果，避免这类问题的办法就是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://lizx.top/img/code.jpg">
+<meta property="og:updated_time" content="2018-01-15T09:26:17.381Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="覆盖equals需要注意的事项">
+<meta name="twitter:description" content="前言Object虽然是一个具体类，但是设计时主要是为了扩展，它的所有非final方法如：equals、hashCode、toString、clone和finalize，这些都有明确的通用约定，都是被设计成要覆盖的，当覆盖这些方法的时候，都要遵守这些通用约定，如果不能的话，会造成一些意料之外的后果。 在覆盖之前要注意一下几种情况在不合适的覆盖equals时，会导致很严重的后果，避免这类问题的办法就是">
+<meta name="twitter:image" content="http://lizx.top/img/code.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lizx.top/2018/01/15/一个Java程序员的自我修养/覆盖equals需要注意的事项/"/>
+
+
+
+
+
+  <title>覆盖equals需要注意的事项 | Pyctay</title>
+  
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pyctay</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizx.top/2018/01/15/一个Java程序员的自我修养/覆盖equals需要注意的事项/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pyctay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pyctay">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">覆盖equals需要注意的事项</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T16:06:35+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java技术/" itemprop="url" rel="index">
+                    <span itemprop="name">Java技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Object虽然是一个具体类，但是设计时主要是为了扩展，它的所有非final方法如：equals、hashCode、toString、clone和finalize，这些都有明确的通用约定，都是被设计成要覆盖的，当覆盖这些方法的时候，都要遵守这些通用约定，如果不能的话，会造成一些意料之外的后果。</p>
+<h2 id="在覆盖之前要注意一下几种情况"><a href="#在覆盖之前要注意一下几种情况" class="headerlink" title="在覆盖之前要注意一下几种情况"></a>在覆盖之前要注意一下几种情况</h2><pre><code>在不合适的覆盖equals时，会导致很严重的后果，避免这类问题的办法就是不覆盖equals方法，这时，类的每个实例都只与自身相等，当满足一下的几种条件时，这（类的每个实例都只与自身相等）就是所希望的。
+### 类的每个实例本质上都是唯一的。
+对于代表活动实体而不是值的类来说确实如此，例如Thread。Object提供的equals对于这些类来说所返回的值就是所期望看到的结果，因此不用覆盖equals方法。
+### 不关心类是否提供了“逻辑相等”的测试功能。
+例如java.util.Random覆盖了equals，以检查两个Random实例是否产生相同的随机数序列，但是设计者并不认为客户需要这样的功能（随机数大多数不需要下一个产生的随机数不与之前产生的随机数相同，除非作为主键，但是用随机数来作为主键保持绝对不重复是不恰当的）。在这种情况下，从Object中继承得到的equals实现已经足够了。因此不用覆盖equals方法。
+### 父类已经覆盖了equals，并且继承过来的equals的行为对于子类来说也是适用的
+例如，大多数的Set实现都从AbstractSet继承equals实现，List实现从AbstractList继承equals实现，Map实现从AbstractMap继承equals实现。当从父类继承的equals实现已经满足使用，那么就不必再次覆盖equals（说得好像废话）。
+### 类是私有的或是包级私有的，可以确定它的equals方法永远不会被调用。
+在这种equals永远不会被调用的情况下，无疑是不用覆盖equals方法的。
+#### 在《Effective Java中文版》中翻译有误，原书解释为：**在这种情况下，无疑是应该覆盖equals方法的，以防它被意外调用。**我当时百思不得其解，为什么永远不会被调用的情况还要防止被意外调用？然后我去看了英文原版，原版内容为
+</code></pre><blockquote>
+<p>The class is private or package-private, and you are certain that its equals method will never be invoked.<br>    然后我一脸懵逼…这就说明有的时候要相信自己的判断，去寻找真相，而不是迷信书籍和权威。</p>
+<h2 id="覆盖equals方法时要遵守的通用约定"><a href="#覆盖equals方法时要遵守的通用约定" class="headerlink" title="覆盖equals方法时要遵守的通用约定"></a>覆盖equals方法时要遵守的通用约定</h2><pre><code>equals方法实现了等价关系：
+### 自反性。
+对于任何非null的引用值x，x.equals(x)必须返回true。
+### 对称性。
+对于任何非null的引用值x和y，当且仅当y.equals(x)为true时，x.equals(y)必须也是true。
+### 传递性。
+对于任何非null的引用值x、y和z，如果x.equals(y)返回true，并且y.equals(z)也返回true，那么x.equals(z)也必须为true。
+### 一致性。
+对于任何非null的引用值x和y，只要equals的比较操作在对象中所用的信息没有被修改，多次调用x.equals(y)就会一直的返回相同的结果。（总不能大嘴巴胡扯吧..程序是一个很严谨的东西，只要引用值所用信息没有改变，那么不管调用多少次，返回值肯定是一样的）
+### 非空性
+对于任何非null的引用值x，x.equals(null)必须返回false。(这个要求没有名称，《Effective Java》中作者称之为非空性)
+</code></pre><h2 id="违反equals约定的后果"><a href="#违反equals约定的后果" class="headerlink" title="违反equals约定的后果"></a>违反equals约定的后果</h2><pre><code>虽然这些规定看起来很多，有点让人感到恐惧，但是也绝对不能忽视这些规定！如果违反了它们，程序就会表现的不正常甚至崩溃，用John Donne的话说，没有哪个类是孤立的。一个类的实例通常会被频繁的传递给另一个类的实例。有许多泪，包括所有的集合类在内，都依赖于传递给它们的对象是否遵守了equals约定。
+### 自反性
+这个要求就是说明对象必须等于自身，这个也是 Object类中提供的最基本的equals方法，加入你违反了这一条，当你添加到集合中，这个集合的contains方法将告诉你：这个集合不包括你刚刚添加的实例。
+### 对称性
+这个要求是说，A=B时，也必须B=A，当你违反了这一条时，当你把A添加到集合中，然后list.contains(B)时，没人知道你的程序会发生什么，有可能返回true，也有可能抛出一个运行时异常。**一旦违反了equals约定，当其他对象面对你的对象时，你完全不知道这些对象的行为会怎样。**
+### 传递性
+当一个类有颜色这种属性，这个类的子类有颜色和长度两种属性，在父类的equals方法中只比较颜色，当两个对象的颜色相等时，返回true，而子类的equals方法中当颜色和长度都相等时才会返回true，那么父类的一个对象A与子类的两个对象B互相使用equals方法时会有什么后果呢？后果不难想象，一个返回true一个返回false，可以这样做尝试修正问题，在子类的equals在进行“混合比较”时忽略掉长度信息，这种方法确实提供了对称性，但是却牺牲了传递性。那么怎么解决这种问题呢？事实上，面向对象语言中关于等价关系的一个基本问题。**我们无法再扩展可实例化类的同时，既增加新的值组件，同时又保证equals约定，除非愿意放弃面向对象的抽象所带来的优势。在这时，我们应该看一下**里氏替换原则**，在此不再赘述。
+在Java平台类库中，有一些类扩展了可实例化得嘞，并添加了新的值组件，例如java.sql.Timestamp对java.util.Date进行了扩展，并增加了nanoseconds域，Timestamp的equals实现就违反了对称性，如果Timestamp和Date对象呗用于同一集合中，或者以其他方法混合在一起，就会引起不正确的行为，Timestamp类有个免责声明，告诫程序员不要混用这两个类，只要不混合在一起，就不会有麻烦，除此之外没有其他措施可以解决，并且导致的错误将很难调试。
+对了，可以在一个抽象类的子类中增加新的值组件，并且不会违反equals约定，我的理解是，只要不可能直接创建父类的对象，那么上面所述问题将不会存在。
+### 一致性
+这条要求说的是：如果两个对象相等，他们就必须始终保持相等，除非他们之间有一个或两个被修改过。无论类是否是不可变的，**都不要使equals方法依赖于不可靠资源。**
+### 非空性
+这条的意思是所有的对象都不等于null，在很多类的equals方法中都通过一个显式的null测试来防止这种情况，其实这个检查是不必要的，因为equals方法必须使用instanceof来判断参数是否为正确的类型，在这一步就能把null给过滤掉，返回false。
+</code></pre><h2 id="实现高质量equals方法的诀窍"><a href="#实现高质量equals方法的诀窍" class="headerlink" title="实现高质量equals方法的诀窍"></a>实现高质量equals方法的诀窍</h2><pre><code>### 1. 使用==操作符检查“参数是否为这个对象的引用”。
+如果是，则返回true，这只是一个性能优化，如果参数是这个对象的引用的话，那么就肯定为true不用进行后边的比较了，如果后边的比较操作有可能很昂贵，那么这么做就是有必要的。
+### 2. 使用instanceof操作符检查“参数是否为正确的类型”
+如果不是，那么直接返回false，所谓的“正确的类型”是指equals方法所在的哪个类，有些情况下，是指该类所实现的某个接口，如果类实现的接口改进了equals约定，允许在实现了该接口的类之间进行比较，那么就使用接口，集合接口就具有这种特性。
+### 3. 把参数转换成正确的类型
+因为转换之前进行了instanceof测试，所以转换肯定会成功。
+### 4. 对于该类中的某个“关键域”，检查参数中的域是否与该对象中对应的域相匹配。
+如果这些测试全部成功，则返回true，否则则返回false。如果第2步中的类型是个接口，就必须通过接口方法访问参数中的域，如果该类型是个类，那就要取决于它们的可访问性。
+### 5. 当你编写完成equals方法后，你应该问自己三个问题：它们是否是对称的、传递的、一致的？
+并且编写单元测试去检验这些特性！如果答案是不是，那就要找出并修改equals方法中的代码，当然，也必须满足其他两个特性（自反性和非空性），但是这两种特性通常会自动满足。
+</code></pre><h2 id="最后的警告"><a href="#最后的警告" class="headerlink" title="最后的警告"></a>最后的警告</h2><pre><code>### 覆盖equals时总要覆盖hashCode
+如果不这样做，就会违反Object.hashCode的通用约定，从而导致该类无法结合所有基于散列的集合一起正常运作。**因没有覆盖hashCode而违反的关键约定是第二条：相等的对象必须具有相等的散列码。**
+### 不要企图让equals方法过于智能。
+如果只是简单的测试值是否相等，则不难做到遵守equals约定，如果想过度的寻求各种等价关系，则很容易陷入麻烦之中。
+### 不要将equals声明中的Object对象替换成其他的类型。
+因为如果改变了参数类型，那么就是**重载**而不是**重写**它也许能够稍微改善性能，但是与增加的复杂性想比，这样做是不可取的。
+</code></pre><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>《Effective Java 中文版 第2版》 第8条：覆盖equals时请遵守通用约定 P28-38<br><strong>文中大部分为书中所作，加上本人的理解与感悟。如有错误，欢迎评论区指正。</strong></p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="同时欢迎关注我的微信公众号：猿人族永不为奴。"><a href="#同时欢迎关注我的微信公众号：猿人族永不为奴。" class="headerlink" title="同时欢迎关注我的微信公众号：猿人族永不为奴。"></a>同时欢迎关注我的微信公众号：猿人族永不为奴。</h2><p>二维码：<img src="/img/code.jpg" alt="“请使用微信扫一扫关注”"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+<div>
+  
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+
+  
+</div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/基础/" rel="tag"><i class="fa fa-tag"></i>
+ 基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/14/设计模式详述/Java中23种设计模式详解/" rel="next" title="JAVA中23种设计模式详解">
+                <i class="fa fa-chevron-left"></i> JAVA中23种设计模式详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Pyctay" />
+            
+              <p class="site-author-name" itemprop="name">Pyctay</p>
+              <p class="site-description motion-element" itemprop="description">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="pyctay@foxmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://fontawesome.io/icons/" title="图标库" target="_blank">图标库</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://lulou.top/" title="啊鲁鲁同学" target="_blank">啊鲁鲁同学</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zhuzizheng.top/" title="Waiter" target="_blank">Waiter</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在覆盖之前要注意一下几种情况"><span class="nav-number">2.</span> <span class="nav-text">在覆盖之前要注意一下几种情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖equals方法时要遵守的通用约定"><span class="nav-number">3.</span> <span class="nav-text">覆盖equals方法时要遵守的通用约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#违反equals约定的后果"><span class="nav-number">4.</span> <span class="nav-text">违反equals约定的后果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现高质量equals方法的诀窍"><span class="nav-number">5.</span> <span class="nav-text">实现高质量equals方法的诀窍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后的警告"><span class="nav-number">6.</span> <span class="nav-text">最后的警告</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">7.</span> <span class="nav-text">参考资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同时欢迎关注我的微信公众号：猿人族永不为奴。"><span class="nav-number">8.</span> <span class="nav-text">同时欢迎关注我的微信公众号：猿人族永不为奴。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="/js/src/total.js"></script>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <span class="post-meta-divider">|</span>
+
+ Powered By <a class="theme-link" target="_blank" href="">Pyctay</a>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2154785"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>
