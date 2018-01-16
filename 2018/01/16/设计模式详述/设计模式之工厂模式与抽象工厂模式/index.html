@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,Springboot,框架," />
+  <meta name="keywords" content="Java,设计模式,程序之美," />
 
 
 
@@ -79,22 +79,20 @@
 
 
 
-<meta name="description" content="解决Springboot请求不到Controllerspringboot最近很火，所以我也来学习一下springboot，同时也顺带感受一下idea的强大，说实话，在一个陌生的IDE里学习一个自己不熟悉的技术时，问题是真的MMP的多，从创建项目运行项目一直小问题不断，不过还好作为一个程序员有着基本的学习能力和解决问题能">
-<meta name="keywords" content="Java,Springboot,框架">
+<meta name="description" content="工厂模式的优缺点优点： 1、一个调用者想创建一个对象，只要知道其名称就可以了。 2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。 3、屏蔽产品的具体实现，调用者只关心产品的接口。缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增">
+<meta name="keywords" content="Java,设计模式,程序之美">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Springboot请求不到Controller解决办法">
-<meta property="og:url" content="http://lizx.top/2018/01/09/一个Java程序员的自我修养/springboot学习之路p1/index.html">
+<meta property="og:title" content="设计模式之工厂模式与抽象工厂模式">
+<meta property="og:url" content="http://lizx.top/2018/01/16/设计模式详述/设计模式之工厂模式与抽象工厂模式/index.html">
 <meta property="og:site_name" content="Pyctay">
-<meta property="og:description" content="解决Springboot请求不到Controllerspringboot最近很火，所以我也来学习一下springboot，同时也顺带感受一下idea的强大，说实话，在一个陌生的IDE里学习一个自己不熟悉的技术时，问题是真的MMP的多，从创建项目运行项目一直小问题不断，不过还好作为一个程序员有着基本的学习能力和解决问题能力，问题也就都解决了。最近就出现了在页面上请求不到controller的情况，出">
+<meta property="og:description" content="工厂模式的优缺点优点： 1、一个调用者想创建一个对象，只要知道其名称就可以了。 2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。 3、屏蔽产品的具体实现，调用者只关心产品的接口。缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。 一、简单工厂模式**抽象产品类**（如">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizx.top/img/error.jpg">
-<meta property="og:image" content="http://lizx.top/img/controller.jpg">
 <meta property="og:image" content="http://lizx.top/img/code.jpg">
-<meta property="og:updated_time" content="2018-01-09T08:55:23.074Z">
+<meta property="og:updated_time" content="2018-01-16T08:15:09.091Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Springboot请求不到Controller解决办法">
-<meta name="twitter:description" content="解决Springboot请求不到Controllerspringboot最近很火，所以我也来学习一下springboot，同时也顺带感受一下idea的强大，说实话，在一个陌生的IDE里学习一个自己不熟悉的技术时，问题是真的MMP的多，从创建项目运行项目一直小问题不断，不过还好作为一个程序员有着基本的学习能力和解决问题能力，问题也就都解决了。最近就出现了在页面上请求不到controller的情况，出">
-<meta name="twitter:image" content="http://lizx.top/img/error.jpg">
+<meta name="twitter:title" content="设计模式之工厂模式与抽象工厂模式">
+<meta name="twitter:description" content="工厂模式的优缺点优点： 1、一个调用者想创建一个对象，只要知道其名称就可以了。 2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。 3、屏蔽产品的具体实现，调用者只关心产品的接口。缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。 一、简单工厂模式**抽象产品类**（如">
+<meta name="twitter:image" content="http://lizx.top/img/code.jpg">
 
 
 
@@ -124,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://lizx.top/2018/01/09/一个Java程序员的自我修养/springboot学习之路p1/"/>
+  <link rel="canonical" href="http://lizx.top/2018/01/16/设计模式详述/设计模式之工厂模式与抽象工厂模式/"/>
 
 
 
 
 
-  <title>Springboot请求不到Controller解决办法 | Pyctay</title>
+  <title>设计模式之工厂模式与抽象工厂模式 | Pyctay</title>
   
 
 
@@ -268,7 +266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizx.top/2018/01/09/一个Java程序员的自我修养/springboot学习之路p1/">
+    <link itemprop="mainEntityOfPage" href="http://lizx.top/2018/01/16/设计模式详述/设计模式之工厂模式与抽象工厂模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Pyctay">
@@ -285,7 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Springboot请求不到Controller解决办法</h1>
+          <h1 class="post-title" itemprop="name headline">设计模式之工厂模式与抽象工厂模式</h1>
         
 
         <div class="post-meta">
@@ -297,8 +295,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T16:30:23+08:00">
-                2018-01-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-16T15:58:55+08:00">
+                2018-01-16
               </time>
             
 
@@ -357,8 +355,18 @@
       
 
       
-        <h2 id="解决Springboot请求不到Controller"><a href="#解决Springboot请求不到Controller" class="headerlink" title="解决Springboot请求不到Controller"></a>解决Springboot请求不到Controller</h2><pre><code>springboot最近很火，所以我也来学习一下springboot，同时也顺带感受一下idea的强大，说实话，在一个陌生的IDE里学习一个自己不熟悉的技术时，问题是真的MMP的多，从创建项目运行项目一直小问题不断，不过还好作为一个程序员有着基本的学习能力和解决问题能力，问题也就都解决了。最近就出现了在页面上请求不到controller的情况，出现404错误 
-</code></pre><p>如下图: <img src="/img/error.jpg" alt="“请求不到controller”"><br>     遂百度之，发现是启动类放的位置不对，导致controller没有被扫描到，把springboot的启动类放到controller包同级目录下，问题解决。<br><img src="/img/controller.jpg" alt="“问题解决”"></p>
+        <h2 id="工厂模式的优缺点"><a href="#工厂模式的优缺点" class="headerlink" title="工厂模式的优缺点"></a>工厂模式的优缺点</h2><p><strong>优点</strong>： 1、一个调用者想创建一个对象，只要知道其名称就可以了。 2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。 3、屏蔽产品的具体实现，调用者只关心产品的接口。<br><strong>缺点</strong>：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。</p>
+<h2 id="一、简单工厂模式"><a href="#一、简单工厂模式" class="headerlink" title="一、简单工厂模式"></a>一、简单工厂模式</h2><pre><code>**抽象产品类**（如汽车）
+__具体实现类（继承抽象产品类）如：宝马
+__具体实现类（继承抽象产品类）如：奔驰
+...
+**工厂类**
+__创建产品方法（接受一个参数以确定需要哪种产品）使用switch语句根据参数创建并返回相应对象。
+**客户类**
+__创建一个工厂对象，调用创建产品方法并传入代码所需对象的参数以获取需要的对象。
+</code></pre><p><strong>简单工厂模式的弊端</strong><br>在增加产品时，需要改动代码（工厂类中switch语句），不符合设计模式的开闭原则。</p>
+<h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><p>是在简单工厂模式的基础上对工厂类进行优化，提供一个工厂接口，可以通过实现工厂几口来建造属于这个产品的专属工厂，在客户类中需要某种产品时，通过创建这个产品的工厂类对象来调用创建产品的方法，来获取相应的产品对象。<br><strong>工厂方法模式的弊端</strong><br>如果需要多种农耕对象时，就会需要创建许多工厂对象。</p>
+<h2 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式**"></a>抽象工厂模式**</h2><p>在工厂方法模式中对产品类进行解耦，可以有多个抽象产品类，工厂类不再创建具体产品，而是具有多个装配此产品的配件，产品抽象类变为一个接口，可以有多个产品抽象类，具体实现类实现此接口。<br><strong>在具体的使用中，我们不需要可以去了解具体使用了哪种工厂模式，根据不同的使用场景来选择合适的解决方案，这几种是可以来回自由切换的，毕竟招式是死的，武功是灵活运用这些招式。</strong></p>
 <h2 id="同时欢迎关注我的微信公众号：猿人族永不为奴。"><a href="#同时欢迎关注我的微信公众号：猿人族永不为奴。" class="headerlink" title="同时欢迎关注我的微信公众号：猿人族永不为奴。"></a>同时欢迎关注我的微信公众号：猿人族永不为奴。</h2><p>二维码：<img src="/img/code.jpg" alt="“请使用微信扫一扫关注”"></p>
 
       
@@ -390,11 +398,11 @@
             <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i>
  Java</a>
           
-            <a href="/tags/Springboot/" rel="tag"><i class="fa fa-tag"></i>
- Springboot</a>
+            <a href="/tags/设计模式/" rel="tag"><i class="fa fa-tag"></i>
+ 设计模式</a>
           
-            <a href="/tags/框架/" rel="tag"><i class="fa fa-tag"></i>
- 框架</a>
+            <a href="/tags/程序之美/" rel="tag"><i class="fa fa-tag"></i>
+ 程序之美</a>
           
         </div>
       
@@ -407,8 +415,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/28/一个Java程序员的自我修养/你好/" rel="next" title="一个Java程序猿的自我修养">
-                <i class="fa fa-chevron-left"></i> 一个Java程序猿的自我修养
+              <a href="/2018/01/16/IT杂谈/程序员的思考/" rel="next" title="程序员的思考">
+                <i class="fa fa-chevron-left"></i> 程序员的思考
               </a>
             
           </div>
@@ -416,10 +424,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/09/Redis学习之路/Redis常用命令/" rel="prev" title="Redis常用命令">
-                Redis常用命令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -592,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#解决Springboot请求不到Controller"><span class="nav-number">1.</span> <span class="nav-text">解决Springboot请求不到Controller</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同时欢迎关注我的微信公众号：猿人族永不为奴。"><span class="nav-number">2.</span> <span class="nav-text">同时欢迎关注我的微信公众号：猿人族永不为奴。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂模式的优缺点"><span class="nav-number">1.</span> <span class="nav-text">工厂模式的优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简单工厂模式"><span class="nav-number">2.</span> <span class="nav-text">一、简单工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式"><span class="nav-number">3.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂模式"><span class="nav-number">4.</span> <span class="nav-text">抽象工厂模式**</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同时欢迎关注我的微信公众号：猿人族永不为奴。"><span class="nav-number">5.</span> <span class="nav-text">同时欢迎关注我的微信公众号：猿人族永不为奴。</span></a></li></ol></div>
             
 
           </div>
