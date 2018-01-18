@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="前言在写着篇文章之前，我有点纠结是否要把单例模式也写出来，因为单例模式看起来很简单，随手就能写出来一个单例模式，但是后来我真正的了解了一下单例模式，发现它并不像我想象中的那么简单，有好多种实现方式并且每一种实现方式有不同的应用场景和不同的优缺点。经此教训，我也明白了任何看上去很简单的东西都有可能超乎想象，同时也要改掉自">
+<meta name="description" content="前言   在写着篇文章之前，我有点纠结是否要把单例模式也写出来，因为单例模式看起来很简单，随手就能写出来一个单例模式，但是后来我真正的了解了一下单例模式，发现它并不像我想象中的那么简单，有好多种实现方式并且每一种实现方式有不同的应用场景和不同的优缺点。经此教训，我也明白了任何看上去很简单的东西都有可能超乎想象，同时也要">
 <meta name="keywords" content="Java,设计模式,程序之美">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式之单例设计模式">
 <meta property="og:url" content="http://lizx.top/2018/01/18/设计模式详述/设计模式之单例设计模式/index.html">
 <meta property="og:site_name" content="Pyctay">
-<meta property="og:description" content="前言在写着篇文章之前，我有点纠结是否要把单例模式也写出来，因为单例模式看起来很简单，随手就能写出来一个单例模式，但是后来我真正的了解了一下单例模式，发现它并不像我想象中的那么简单，有好多种实现方式并且每一种实现方式有不同的应用场景和不同的优缺点。经此教训，我也明白了任何看上去很简单的东西都有可能超乎想象，同时也要改掉自己眼高手低的毛病，自勉。 单例模式**单例模式（Singleton Patter">
+<meta property="og:description" content="前言   在写着篇文章之前，我有点纠结是否要把单例模式也写出来，因为单例模式看起来很简单，随手就能写出来一个单例模式，但是后来我真正的了解了一下单例模式，发现它并不像我想象中的那么简单，有好多种实现方式并且每一种实现方式有不同的应用场景和不同的优缺点。经此教训，我也明白了任何看上去很简单的东西都有可能超乎想象，同时也要改掉自己眼高手低的毛病，自勉。 单例模式单例模式（Singleton Patte">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://lizx.top/img/single/single1.jpg">
 <meta property="og:image" content="http://lizx.top/img/single/single2.jpg">
@@ -99,10 +99,10 @@
 <meta property="og:image" content="http://lizx.top/img/single/single5.jpg">
 <meta property="og:image" content="http://lizx.top/img/single/single6.jpg">
 <meta property="og:image" content="http://lizx.top/img/code.jpg">
-<meta property="og:updated_time" content="2018-01-18T11:32:39.206Z">
+<meta property="og:updated_time" content="2018-01-18T11:39:41.941Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之单例设计模式">
-<meta name="twitter:description" content="前言在写着篇文章之前，我有点纠结是否要把单例模式也写出来，因为单例模式看起来很简单，随手就能写出来一个单例模式，但是后来我真正的了解了一下单例模式，发现它并不像我想象中的那么简单，有好多种实现方式并且每一种实现方式有不同的应用场景和不同的优缺点。经此教训，我也明白了任何看上去很简单的东西都有可能超乎想象，同时也要改掉自己眼高手低的毛病，自勉。 单例模式**单例模式（Singleton Patter">
+<meta name="twitter:description" content="前言   在写着篇文章之前，我有点纠结是否要把单例模式也写出来，因为单例模式看起来很简单，随手就能写出来一个单例模式，但是后来我真正的了解了一下单例模式，发现它并不像我想象中的那么简单，有好多种实现方式并且每一种实现方式有不同的应用场景和不同的优缺点。经此教训，我也明白了任何看上去很简单的东西都有可能超乎想象，同时也要改掉自己眼高手低的毛病，自勉。 单例模式单例模式（Singleton Patte">
 <meta name="twitter:image" content="http://lizx.top/img/single/single1.jpg">
 
 
@@ -366,9 +366,9 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><pre><code>在写着篇文章之前，我有点纠结是否要把单例模式也写出来，因为单例模式看起来很简单，随手就能写出来一个单例模式，但是后来我真正的了解了一下单例模式，发现它并不像我想象中的那么简单，有好多种实现方式并且每一种实现方式有不同的应用场景和不同的优缺点。经此教训，我也明白了任何看上去很简单的东西都有可能超乎想象，同时也要改掉自己眼高手低的毛病，自勉。
-</code></pre><h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><pre><code>**单例模式（Singleton Pattern）**是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。当一个需要全局使用的对象频繁的创建销毁时，这样的操作是没有必要的，可以使用单例模式来创建这个全局对象的唯一实例来供所有使用这个全局对象的场景使用。
-</code></pre><h3 id="单例模式的特点"><a href="#单例模式的特点" class="headerlink" title="单例模式的特点"></a>单例模式的特点</h3><pre><code>1、单例类只能有一个实例。
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>   在写着篇文章之前，我有点纠结是否要把单例模式也写出来，因为单例模式看起来很简单，随手就能写出来一个单例模式，但是后来我真正的了解了一下单例模式，发现它并不像我想象中的那么简单，有好多种实现方式并且每一种实现方式有不同的应用场景和不同的优缺点。经此教训，我也明白了任何看上去很简单的东西都有可能超乎想象，同时也要改掉自己眼高手低的毛病，自勉。</p>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p><strong>单例模式（Singleton Pattern）</strong>是 Java 中最简单的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。当一个需要全局使用的对象频繁的创建销毁时，这样的操作是没有必要的，可以使用单例模式来创建这个全局对象的唯一实例来供所有使用这个全局对象的场景使用。</p>
+<h3 id="单例模式的特点"><a href="#单例模式的特点" class="headerlink" title="单例模式的特点"></a>单例模式的特点</h3><pre><code>1、单例类只能有一个实例。
 2、单例类必须自己创建自己的唯一实例。
 3、单例类必须给所有其他对象提供这一实例。
 </code></pre><h3 id="单例模式的优点"><a href="#单例模式的优点" class="headerlink" title="单例模式的优点"></a>单例模式的优点</h3><pre><code>1、在内存里只有一个实例，减少了内存的开销，尤其是频繁的创建和销毁实例（比如管理学院首页页面缓存）。 
