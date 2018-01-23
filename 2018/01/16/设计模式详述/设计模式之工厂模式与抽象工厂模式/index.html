@@ -88,7 +88,7 @@
 <meta property="og:description" content="工厂模式的优缺点优点：  1、一个调用者想创建一个对象，只要知道其名称就可以了。  2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。  3、屏蔽产品的具体实现，调用者只关心产品的接口。缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。 一、简单工厂模式抽象产品类（如汽">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://lizx.top/img/code.jpg">
-<meta property="og:updated_time" content="2018-01-16T08:27:24.316Z">
+<meta property="og:updated_time" content="2018-01-23T08:45:35.066Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之工厂模式与抽象工厂模式">
 <meta name="twitter:description" content="工厂模式的优缺点优点：  1、一个调用者想创建一个对象，只要知道其名称就可以了。  2、扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。  3、屏蔽产品的具体实现，调用者只关心产品的接口。缺点：每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。 一、简单工厂模式抽象产品类（如汽">
@@ -368,7 +368,7 @@ __创建一个工厂对象，调用创建产品方法并传入代码所需对象
 <h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><p>是在简单工厂模式的基础上对工厂类进行优化，提供一个工厂接口，可以通过实现工厂接口来建造属于这个产品的专属工厂，在客户类中需要某种产品时，通过创建这个产品的工厂类对象来调用创建产品的方法，来获取相应的产品对象。<br><strong>工厂方法模式的弊端</strong><br>如果需要多种对象时，就会需要创建许多工厂对象。</p>
 <h2 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h2><p>在工厂方法模式中对产品类进行解耦，可以有多个抽象产品类，工厂类不再创建具体产品，而是具有多个装配此产品的配件，产品抽象类变为一个接口，可以有多个产品抽象类，具体实现类实现此接口。<br><strong>具体的使用中，我们不需要可以去了解具体使用了哪种工厂模式，根据不同的使用场景来选择合适的解决方案，这几种是可以来回自由切换的，毕竟招式是死的，武功是灵活运用这些招式。</strong></p>
 <p><strong>我个人认为，在设计模式的在习中，以理解为主在理解之后就要忘记他们的构造，能够在使用中应该选择合适的解决办法，而不是强行使用设计模式，这样做不仅没有达到设计模式的初衷，甚至会拖累系统，使系统更加复杂，就像武侠中的破而后立</strong></p>
-<h2 id="同时欢迎关注我的微信公众号：猿人族永不为奴。"><a href="#同时欢迎关注我的微信公众号：猿人族永不为奴。" class="headerlink" title="同时欢迎关注我的微信公众号：猿人族永不为奴。"></a>同时欢迎关注我的微信公众号：猿人族永不为奴。</h2><p>二维码：<img src="/img/code.jpg" alt="“请使用微信扫一扫关注”"></p>
+<h2 id="完整代码实现：https-github-com-pyctay-Factory-git"><a href="#完整代码实现：https-github-com-pyctay-Factory-git" class="headerlink" title="完整代码实现：https://github.com/pyctay/Factory.git"></a>完整代码实现：<a href="https://github.com/pyctay/Factory.git" target="_blank" rel="noopener">https://github.com/pyctay/Factory.git</a></h2><h2 id="同时欢迎关注我的微信公众号：猿人族永不为奴。"><a href="#同时欢迎关注我的微信公众号：猿人族永不为奴。" class="headerlink" title="同时欢迎关注我的微信公众号：猿人族永不为奴。"></a>同时欢迎关注我的微信公众号：猿人族永不为奴。</h2><p>二维码：<img src="/img/code.jpg" alt="“请使用微信扫一扫关注”"></p>
 
       
     </div>
@@ -514,7 +514,7 @@ __创建一个工厂对象，调用创建产品方法并传入代码所需对象
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -536,7 +536,7 @@ __创建一个工厂对象，调用创建产品方法并传入代码所需对象
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -601,7 +601,7 @@ __创建一个工厂对象，调用创建产品方法并传入代码所需对象
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂模式的优缺点"><span class="nav-number">1.</span> <span class="nav-text">工厂模式的优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简单工厂模式"><span class="nav-number">2.</span> <span class="nav-text">一、简单工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式"><span class="nav-number">3.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂模式"><span class="nav-number">4.</span> <span class="nav-text">抽象工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同时欢迎关注我的微信公众号：猿人族永不为奴。"><span class="nav-number">5.</span> <span class="nav-text">同时欢迎关注我的微信公众号：猿人族永不为奴。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂模式的优缺点"><span class="nav-number">1.</span> <span class="nav-text">工厂模式的优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简单工厂模式"><span class="nav-number">2.</span> <span class="nav-text">一、简单工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式"><span class="nav-number">3.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂模式"><span class="nav-number">4.</span> <span class="nav-text">抽象工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码实现：https-github-com-pyctay-Factory-git"><span class="nav-number">5.</span> <span class="nav-text">完整代码实现：https://github.com/pyctay/Factory.git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同时欢迎关注我的微信公众号：猿人族永不为奴。"><span class="nav-number">6.</span> <span class="nav-text">同时欢迎关注我的微信公众号：猿人族永不为奴。</span></a></li></ol></div>
             
 
           </div>
