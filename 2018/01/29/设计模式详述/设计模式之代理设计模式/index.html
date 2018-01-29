@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,设计模式,程序之美," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="代理模式代理模式（Proxy Pattern）是使一个类具有另外一个类的功能，使这个类代理另外一个类来完成一些工作，属于结构型模式。目的：在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，我们可以在访问此对象时加上">
+<meta name="keywords" content="Java,设计模式,程序之美">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之代理设计模式">
+<meta property="og:url" content="http://lizx.top/2018/01/29/设计模式详述/设计模式之代理设计模式/index.html">
+<meta property="og:site_name" content="Pyctay">
+<meta property="og:description" content="代理模式代理模式（Proxy Pattern）是使一个类具有另外一个类的功能，使这个类代理另外一个类来完成一些工作，属于结构型模式。目的：在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，我们可以在访问此对象时加上一个对此对象的访问层。优点： 1、职责清晰。 2、高扩展性。 3、智能化。缺点：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://lizx.top/img/proxy/console1.jpg">
+<meta property="og:image" content="http://lizx.top/img/code.jpg">
+<meta property="og:updated_time" content="2018-01-29T02:44:20.803Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式之代理设计模式">
+<meta name="twitter:description" content="代理模式代理模式（Proxy Pattern）是使一个类具有另外一个类的功能，使这个类代理另外一个类来完成一些工作，属于结构型模式。目的：在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，我们可以在访问此对象时加上一个对此对象的访问层。优点： 1、职责清晰。 2、高扩展性。 3、智能化。缺点：">
+<meta name="twitter:image" content="http://lizx.top/img/proxy/console1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lizx.top/2018/01/29/设计模式详述/设计模式之代理设计模式/"/>
+
+
+
+
+
+  <title>设计模式之代理设计模式 | Pyctay</title>
+  
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pyctay</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizx.top/2018/01/29/设计模式详述/设计模式之代理设计模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pyctay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pyctay">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式之代理设计模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-29T09:54:32+08:00">
+                2018-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java技术/" itemprop="url" rel="index">
+                    <span itemprop="name">Java技术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><p><strong>代理模式（Proxy Pattern）</strong>是使一个类具有另外一个类的功能，使这个类代理另外一个类来完成一些工作，属于结构型模式。<br><strong>目的：</strong>在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，我们可以在访问此对象时加上一个对此对象的访问层。<br><strong>优点：</strong> 1、职责清晰。 2、高扩展性。 3、智能化。<br><strong>缺点：</strong> 1、由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。 2、实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</p>
+<h2 id="代理模式实现"><a href="#代理模式实现" class="headerlink" title="代理模式实现"></a>代理模式实现</h2><p>以周杰伦为例，某公司想要请周杰伦在年会上演出，所以找了周杰伦（目标对象）的经纪人（代理对象）</p>
+<h3 id="1-1-静态代理"><a href="#1-1-静态代理" class="headerlink" title="1.1 静态代理"></a>1.1 静态代理</h3><p>接口：周杰伦工作室<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package StaticAgent;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 接口</span><br><span class="line"> *</span><br><span class="line"> * @date 2018/1/21 16:57:54</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public interface Jay &#123;</span><br><span class="line">    void sing();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>目标对象：周杰伦本人<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package StaticAgent;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 周杰伦真身</span><br><span class="line"> *</span><br><span class="line"> * @date 2018/1/21 16:59:44</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public class RealJay implements Jay &#123;</span><br><span class="line">    private String songName;</span><br><span class="line">    public RealJay (String songName)&#123;</span><br><span class="line">        this.songName = songName;</span><br><span class="line">        ready();</span><br><span class="line">    &#125;</span><br><span class="line">    public void ready() &#123;</span><br><span class="line">        System.out.println(&quot;周杰伦被请来了，正在准备唱歌&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void sing() &#123;</span><br><span class="line">        System.out.println(&quot;周杰伦在唱&quot;+songName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代理对象：周杰伦的经纪人<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package StaticAgent;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 周杰伦的经纪人</span><br><span class="line"> *</span><br><span class="line"> * @version 2018/1/21 17:01:30</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public class Agent implements Jay &#123;</span><br><span class="line">    private String songName;</span><br><span class="line">    private  RealJay realJay;</span><br><span class="line">    public Agent (String songName)&#123;</span><br><span class="line">        this.songName = songName;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void sing() &#123;</span><br><span class="line">        System.out.println(&quot;主持人：今天有幸请到了周杰伦来为大家演唱一首歌&quot;);</span><br><span class="line">        if(realJay==null)&#123;</span><br><span class="line">            realJay = new RealJay(songName);</span><br><span class="line">        &#125;</span><br><span class="line">        realJay.sing();</span><br><span class="line">        System.out.println(&quot;主持人：晚会结束，谢谢大家&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package StaticAgent;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 静态代理测试主类</span><br><span class="line"> */</span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Jay jay = new Agent(&quot;菊花台&quot;);</span><br><span class="line">        jay.sing();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果：<br><img src="/img/proxy/console1.jpg" alt="“图片”"><br><strong>静态代理总结:</strong><br>优点：可以做到在不修改目标对象的功能前提下,对目标功能扩展.<br>缺点：代理对象需要与目标对象实现一样的接口,所以会有很多代理类,类太多.同时,一旦接口增加方法,目标对象与代理对象都要维护.维护成本太大。</p>
+<h3 id="1-2-动态代理"><a href="#1-2-动态代理" class="headerlink" title="1.2 动态代理"></a>1.2 动态代理</h3><p>1.在运行期，通过反射机制创建一个实现了一组给定接口的新类<br>2.在运行时生成的class，必须提供一组interface给它，然后该class就宣称它实现了这些 interface。该class的实 例可以当作这些interface中的任何一个来用。但是这个Dynamic Proxy其实就是一个Proxy， 它不会替你作实质性的工作，在生成它的实例时你必须提供一个handler，由它接管实际的工 作。<br>3.动态代理也叫做:JDK代理,接口代理<br>4.接口中声明的所有方法都被转移到调用处理器一个集中的方法中处理（InvocationHandler.invoke）。这样，在接口方法数量比较多的时候，我们可以进行灵活处理，而不需要像静态代理那样每一个方法进行中转。而且动态代理的应用使我们的类职责更加单一，复用性更强<br>代码实现：<br>接口：周杰伦工作室<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">package DynamicAgent;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 接口</span><br><span class="line"> *</span><br><span class="line"> * @date 2018/1/21 16:57:54</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public interface Jay &#123;</span><br><span class="line">    void sing();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>目标对象：周杰伦本人<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">package DynamicAgent;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 周杰伦真身</span><br><span class="line"> *</span><br><span class="line"> * @version 2018/1/21 16:59:44</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public class RealJay implements Jay &#123;</span><br><span class="line">    private String songName;</span><br><span class="line">    public RealJay (String songName)&#123;</span><br><span class="line">        this.songName = songName;</span><br><span class="line">        ready();</span><br><span class="line">    &#125;</span><br><span class="line">    public void ready() &#123;</span><br><span class="line">        System.out.println(&quot;周杰伦被请来了，正在准备唱歌&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void sing() &#123;</span><br><span class="line">        System.out.println(&quot;周杰伦在唱&quot;+songName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代理对象：周杰伦经纪人<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">package DynamicAgent;</span><br><span class="line"></span><br><span class="line">import java.lang.reflect.InvocationHandler;</span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">import java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 周杰伦的经纪人</span><br><span class="line"> *</span><br><span class="line"> * @date 2018/1/22 14:21:05</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public class Agent implements InvocationHandler&#123;</span><br><span class="line">    // 目标对象</span><br><span class="line">    private Object target;</span><br><span class="line">    // 构造目标对象</span><br><span class="line">    public Agent (Object target)&#123;</span><br><span class="line">        super();</span><br><span class="line">        this.target = target;</span><br><span class="line">    &#125;</span><br><span class="line">   // 执行目标方法</span><br><span class="line">    @Override</span><br><span class="line">    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable &#123;</span><br><span class="line">        System.out.println(&quot;主持人：今天有幸请到了周杰伦来为大家演唱一首歌&quot;);</span><br><span class="line">        Object resultValue = method.invoke(target,args);</span><br><span class="line">        System.out.println(&quot;晚会结束，谢谢大家&quot;);</span><br><span class="line">        return resultValue;</span><br><span class="line">    &#125;</span><br><span class="line">    //ClassLoader loader：指定当前目标对象使用类加载器，写法固定</span><br><span class="line">    //Class&lt;?&gt;[] interfaces：目标对象实现的接口的类型，写法固定</span><br><span class="line">    //InvocationHandler h：事件处理接口，需传入一个实现类.</span><br><span class="line">    public Object getProxy() &#123;</span><br><span class="line">        return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(),target.getClass().getInterfaces(),this);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package DynamicAgent;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 动态代理测试主方法</span><br><span class="line"> *</span><br><span class="line"> * @date 2018/1/22 14:19:30</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        Jay realJay = new RealJay(&quot;菊花台&quot;);</span><br><span class="line">        Agent agent = new Agent(realJay);</span><br><span class="line">        Jay proxy = (Jay) agent.getProxy();</span><br><span class="line">        proxy.sing();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>静态代理总结:</strong><br>优点：可以做到在不修改目标对象的功能前提下,对目标功能扩展.并且维护方便，加入接口增加方法，代理类并不一定需要增加方法（如果增加的方法不需要代理）<br>缺点：和静态代理一样都需要目标对象实现一个或多个接口，但是很多时候有些类并没有实现接口，这样怎么办呢？我们可以使用cglib代理。</p>
+<h3 id="Cglib代理"><a href="#Cglib代理" class="headerlink" title="Cglib代理"></a>Cglib代理</h3><p><strong>注意事项</strong><br>使用Cglib代理需要引入cglib的jar文件，由于Spring的核心包中已经包括了Cglib功能，所以也可以直接引入Spring核心包，由于Cglib的原理是构造一个目标类的子类，所以目标类不能为final，并且目标对象的方法如果为final/static，那么就不会被拦截，即不会执行目标对象额外的业务方法。<br>代码实现：<br>目标对象：周杰伦本人<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package CglibAgent;</span><br><span class="line">/**</span><br><span class="line"> * 周杰伦真身</span><br><span class="line"> *</span><br><span class="line"> * @version 2018/1/21 16:59:44</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public class RealJay &#123;</span><br><span class="line">    private String songName;</span><br><span class="line">    public RealJay(String songName)&#123;</span><br><span class="line">        this.songName = songName;</span><br><span class="line">        ready();</span><br><span class="line">    &#125;</span><br><span class="line">    public  RealJay()&#123;&#125;;</span><br><span class="line">    public void ready() &#123;</span><br><span class="line">        System.out.println(&quot;周杰伦被请来了，正在准备唱歌&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void sing() &#123;</span><br><span class="line">        System.out.println(&quot;周杰伦在唱&quot;+songName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代理对象：周杰伦经纪人<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">package CglibAgent;</span><br><span class="line"></span><br><span class="line">import org.springframework.cglib.proxy.Enhancer;</span><br><span class="line">import org.springframework.cglib.proxy.MethodInterceptor;</span><br><span class="line">import org.springframework.cglib.proxy.MethodProxy;</span><br><span class="line"></span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 周杰伦经纪人</span><br><span class="line"> *</span><br><span class="line"> * @version 2018/1/22 14:50:20</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public class Agent implements MethodInterceptor &#123;</span><br><span class="line">    // 维护一个目标</span><br><span class="line">    private Object target;</span><br><span class="line">    // 构造一个目标对象</span><br><span class="line">    public Agent(Object target)&#123;</span><br><span class="line">        super();</span><br><span class="line">        this.target = target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Object getProxyInstance() &#123;</span><br><span class="line">        Enhancer en = new Enhancer();</span><br><span class="line">        en.setCallback(this);</span><br><span class="line">        en.setSuperclass(target.getClass());</span><br><span class="line">        return en.create();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable &#123;</span><br><span class="line">        System.out.println(&quot;主持人：今天有幸请到了周杰伦来为大家演唱一首歌&quot;);</span><br><span class="line">        Object resultValue = method.invoke(target,objects);</span><br><span class="line">        System.out.println(&quot;晚会结束，谢谢大家&quot;);</span><br><span class="line">        return resultValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package CglibAgent;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * cglib代理测试主类</span><br><span class="line"> *</span><br><span class="line"> * @version 2018/1/22 14:57:34</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        RealJay realJay = new RealJay(&quot;发如雪&quot;);</span><br><span class="line">        Agent agent = new Agent(realJay);</span><br><span class="line">        RealJay proxy = (RealJay) agent.getProxyInstance();</span><br><span class="line">        proxy.sing();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="完整代码实现：https-github-com-pyctay-proxy-git"><a href="#完整代码实现：https-github-com-pyctay-proxy-git" class="headerlink" title="完整代码实现：https://github.com/pyctay/proxy.git"></a>完整代码实现：<a href="https://github.com/pyctay/proxy.git" target="_blank" rel="noopener">https://github.com/pyctay/proxy.git</a></h2><h2 id="同时欢迎关注我的微信公众号：猿人族永不为奴。"><a href="#同时欢迎关注我的微信公众号：猿人族永不为奴。" class="headerlink" title="同时欢迎关注我的微信公众号：猿人族永不为奴。"></a>同时欢迎关注我的微信公众号：猿人族永不为奴。</h2><p>二维码：<img src="/img/code.jpg" alt="“请使用微信扫一扫关注”"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+<div>
+  
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+
+  
+</div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i>
+ Java</a>
+          
+            <a href="/tags/设计模式/" rel="tag"><i class="fa fa-tag"></i>
+ 设计模式</a>
+          
+            <a href="/tags/程序之美/" rel="tag"><i class="fa fa-tag"></i>
+ 程序之美</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/23/IT杂谈/使用git上传新项目到github/" rel="next" title="使用git上传新项目到github">
+                <i class="fa fa-chevron-left"></i> 使用git上传新项目到github
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Pyctay" />
+            
+              <p class="site-author-name" itemprop="name">Pyctay</p>
+              <p class="site-description motion-element" itemprop="description">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="pyctay@foxmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://fontawesome.io/icons/" title="图标库" target="_blank">图标库</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://lulou.top/" title="啊鲁鲁同学" target="_blank">啊鲁鲁同学</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zhuzizheng.top/" title="Waiter" target="_blank">Waiter</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式"><span class="nav-number">1.</span> <span class="nav-text">代理模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式实现"><span class="nav-number">2.</span> <span class="nav-text">代理模式实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-静态代理"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 静态代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-动态代理"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 动态代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cglib代理"><span class="nav-number">2.3.</span> <span class="nav-text">Cglib代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整代码实现：https-github-com-pyctay-proxy-git"><span class="nav-number">3.</span> <span class="nav-text">完整代码实现：https://github.com/pyctay/proxy.git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同时欢迎关注我的微信公众号：猿人族永不为奴。"><span class="nav-number">4.</span> <span class="nav-text">同时欢迎关注我的微信公众号：猿人族永不为奴。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="/js/src/total.js"></script>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <span class="post-meta-divider">|</span>
+
+ Powered By <a class="theme-link" target="_blank" href="">Pyctay</a>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2154785"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>
