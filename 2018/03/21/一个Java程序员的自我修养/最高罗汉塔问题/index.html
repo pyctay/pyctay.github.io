@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,逻辑编程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近面试遇到这样的一个机试题小王最近利用假期在外地旅游，在某个小镇碰到一个马戏团表演，精彩的表演结束后发现团长正和大伙在帐篷前激烈讨论，小王打听了下了解到， 马戏团正打算出一个新节目“最高罗汉塔”，即马戏团员叠罗汉表演。考虑到安全因素，要求叠罗汉过程中，站在某个人肩上的人应该既比自己矮又比自己瘦，或相 等。 团长想要本">
+<meta name="keywords" content="面试,逻辑编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最高罗汉塔问题">
+<meta property="og:url" content="http://lizx.top/2018/03/21/一个Java程序员的自我修养/最高罗汉塔问题/index.html">
+<meta property="og:site_name" content="Pyctay">
+<meta property="og:description" content="最近面试遇到这样的一个机试题小王最近利用假期在外地旅游，在某个小镇碰到一个马戏团表演，精彩的表演结束后发现团长正和大伙在帐篷前激烈讨论，小王打听了下了解到， 马戏团正打算出一个新节目“最高罗汉塔”，即马戏团员叠罗汉表演。考虑到安全因素，要求叠罗汉过程中，站在某个人肩上的人应该既比自己矮又比自己瘦，或相 等。 团长想要本次节目中的罗汉塔叠的最高，由于人数众多，正在头疼如何安排人员的问题。小王觉得这个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://lizx.top/img/logical/logical.jpg">
+<meta property="og:image" content="http://lizx.top/img/code.jpg">
+<meta property="og:updated_time" content="2018-03-21T08:50:02.793Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最高罗汉塔问题">
+<meta name="twitter:description" content="最近面试遇到这样的一个机试题小王最近利用假期在外地旅游，在某个小镇碰到一个马戏团表演，精彩的表演结束后发现团长正和大伙在帐篷前激烈讨论，小王打听了下了解到， 马戏团正打算出一个新节目“最高罗汉塔”，即马戏团员叠罗汉表演。考虑到安全因素，要求叠罗汉过程中，站在某个人肩上的人应该既比自己矮又比自己瘦，或相 等。 团长想要本次节目中的罗汉塔叠的最高，由于人数众多，正在头疼如何安排人员的问题。小王觉得这个">
+<meta name="twitter:image" content="http://lizx.top/img/logical/logical.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lizx.top/2018/03/21/一个Java程序员的自我修养/最高罗汉塔问题/"/>
+
+
+
+
+
+  <title>最高罗汉塔问题 | Pyctay</title>
+  
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Pyctay</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizx.top/2018/03/21/一个Java程序员的自我修养/最高罗汉塔问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Pyctay">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Pyctay">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">最高罗汉塔问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-21T16:50:02+08:00">
+                2018-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/逻辑编程/" itemprop="url" rel="index">
+                    <span itemprop="name">逻辑编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="最近面试遇到这样的一个机试题"><a href="#最近面试遇到这样的一个机试题" class="headerlink" title="最近面试遇到这样的一个机试题"></a>最近面试遇到这样的一个机试题</h2><p>小王最近利用假期在外地旅游，在某个小镇碰到一个马戏团表演，精彩的表演结束后发现团长正和大伙在帐篷前激烈讨论，小王打听了下了解到， 马戏团正打算出一个新节目“最高罗汉塔”，即马戏团员叠罗汉表演。考虑到安全因素，要求叠罗汉过程中，站在某个人肩上的人应该既比自己矮又比自己瘦，或相 等。 团长想要本次节目中的罗汉塔叠的最高，由于人数众多，正在头疼如何安排人员的问题。小王觉得这个问题很简单，于是统计了参与最高罗汉塔表演的所有团员的身 高体重，并且很快找到叠最高罗汉塔的人员序列。 现在你手上也拿到了这样一份身高体重表，请找出可以叠出的最高罗汉塔的高度，这份表中马戏团员依次编号为1到N。<br><strong>输入描述:</strong><br>首先一个正整数N，表示人员个数。<br>之后N行，每行三个数，分别对应马戏团员编号，体重和身高。</p>
+<p><strong>输出描述:</strong><br>正整数m，表示罗汉塔的高度。</p>
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><p>在这道题目中，要求就是在下边的人要比在上边的人体重重并且身高要高，或者一样。所以首先要进行一次排序，排序完之后再统计从每一个位置开始往后算，若是以此人为最底下的那个人，按照要求最高可以叠几个人，最后再取最大值。</p>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><h3 id="排序（需要按照考虑身高和体重两种情况）"><a href="#排序（需要按照考虑身高和体重两种情况）" class="headerlink" title="排序（需要按照考虑身高和体重两种情况）"></a>排序（需要按照考虑身高和体重两种情况）</h3><p><strong>在JDK1.8之前的排序：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">prosonList.sort(new Comparator&lt;Person&gt;() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public int compare(Person o1, Person o2) &#123;</span><br><span class="line">                return o1.getWeight() == o2.getWeight()? o1.getHeight() - o2.getHeight():o1.getWeight() - o2.getWeight();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>我们需要使用sort方法传入一个Comparator，并重写内部的compare方法，如果两人体重相等时，则根据身高排序，如果体重不相等，就直接根据体重排序<br><strong>在JDK1.8我们可以用lanbda表达式对list进行排序：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prosonList.sort(Comparator.comparingInt(Person::getHeight).thenComparingInt(Person::getWeight).reversed());</span><br></pre></td></tr></table></figure></p>
+<h3 id="分析排序后的数据"><a href="#分析排序后的数据" class="headerlink" title="分析排序后的数据"></a>分析排序后的数据</h3><p><img src="/img/logical/logical.jpg" alt="“数据”"><br>在这时候，我们应该了解题目的几点：<br>1.并不是从下标为0的开始才是可以叠最高的，因为当身高较低时，对后边的有限制。<br>2.当后一个不符合时，并不代表后边的后边的不符合。<br>3.如果当前可以叠最高的长度大于剩余的长度，那么当前这个长度就是最大长度。<br>按照这几点我做了以下的操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 最高层数，初始为0</span><br><span class="line">       int len = 0;</span><br><span class="line">       for(int i = 0;i&lt;prosonList.size();i++)&#123;</span><br><span class="line">           // 如果当前的最大层数大于剩余的长度，则直接返回len。</span><br><span class="line">           if(len&gt;prosonList.size()-i)&#123;</span><br><span class="line">               return len;</span><br><span class="line">           &#125;</span><br><span class="line">           // 最少层数为1</span><br><span class="line">           int lenTemp = 1;</span><br><span class="line">           // 当前起点的人的体重</span><br><span class="line">           int weight = prosonList.get(i).getWeight();</span><br><span class="line">           // 以i为起点，计算最多可以叠多少层</span><br><span class="line">           for(int j = i;j&lt;prosonList.size()-1;j++)&#123;</span><br><span class="line">               // 如果后边的一个人的重量小于当前当前的重量，就把lenTemp加一,并把当前人的体重设为weight以供后面比较</span><br><span class="line">               if(weight&gt;prosonList.get(j+1).getWeight())&#123;</span><br><span class="line">                   lenTemp += 1;</span><br><span class="line">                   weight = prosonList.get(j+1).getWeight();</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           // 如果从i开始可以叠的层数大于从之前开始的最大的层数，则把从i开始可以叠的层数设为最大的层数</span><br><span class="line">           if(lenTemp&gt;len)&#123;</span><br><span class="line">               len = lenTemp;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure></p>
+<p>外部的循环是依次从下标为0的开始排，可以排lenTemp层，内部的循环是代表从i处开始排，当后边的体重大于当前体重时，把lenTemp加一，代表后边的可以往上爹，然后再以后边的体重为后边的后边的比较参数，以此类推，如果从i开始可以排的层数lenTemp大于len，则把lenTemp的值赋予len，如果当前的最高长度大于剩余还没有排的长度，则直接返回len，因为后边就算可以全部叠上去，那么长度也不可能超过len了。</p>
+<h2 id="全部代码"><a href="#全部代码" class="headerlink" title="全部代码"></a>全部代码</h2><p>Person类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">package com.lizx.highest;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 马戏团员</span><br><span class="line"> *</span><br><span class="line"> * @date 2018/3/19 20:08:55</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public class Person &#123;</span><br><span class="line">    private int id;</span><br><span class="line">    private int height;</span><br><span class="line">    private int weight;</span><br><span class="line"></span><br><span class="line">    public int getId() &#123;</span><br><span class="line">        return id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setId(int id) &#123;</span><br><span class="line">        this.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getHeight() &#123;</span><br><span class="line">        return height;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setHeight(int height) &#123;</span><br><span class="line">        this.height = height;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getWeight() &#123;</span><br><span class="line">        return weight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setWeight(int weight) &#123;</span><br><span class="line">        this.weight = weight;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Highest:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">package com.lizx.highest;</span><br><span class="line"></span><br><span class="line">import java.util.*;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 最高罗汉塔</span><br><span class="line"> *</span><br><span class="line"> * @date 2018/3/19 20:10:29</span><br><span class="line"> * @auther Pyctay</span><br><span class="line"> */</span><br><span class="line">public class Highest &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ArrayList&lt;Person&gt; prosonList = new ArrayList&lt;Person&gt;();</span><br><span class="line">        Scanner sc = new Scanner(System.in);</span><br><span class="line">        Person person = null;</span><br><span class="line">        while (true) &#123;</span><br><span class="line">            System.out.println(&quot;请输入（编号、体重、身高，以逗号分隔，结束输入请输入#end）&quot;);</span><br><span class="line">            String input = sc.next();</span><br><span class="line">            if (&quot;#end&quot;.equals(input))</span><br><span class="line">                break;</span><br><span class="line">            String[] arr = input.split(&quot;,&quot;);</span><br><span class="line">            if (arr.length != 3) &#123;</span><br><span class="line">                System.out.println(&quot;格式错误，请重新输入&quot;);</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line">            person = new Person();</span><br><span class="line">            person.setId(Integer.parseInt(arr[0]));</span><br><span class="line">            person.setWeight(Integer.parseInt(arr[1]));</span><br><span class="line">            person.setHeight(Integer.parseInt(arr[2]));</span><br><span class="line">            prosonList.add(person);</span><br><span class="line">        &#125;</span><br><span class="line">        int len = getHighest(prosonList);</span><br><span class="line">        System.out.println(len);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 计算最高罗汉塔</span><br><span class="line">     * @param prosonList</span><br><span class="line">     * @return 最高罗汉塔层数</span><br><span class="line">     */</span><br><span class="line">    private static int getHighest(ArrayList&lt;Person&gt; prosonList)&#123;</span><br><span class="line">        // 按照身高、体重排序（优先按照身高）</span><br><span class="line">        prosonList.sort(Comparator.comparingInt(Person::getHeight).thenComparingInt(Person::getWeight).reversed());</span><br><span class="line">        // 最高层数，初始为0</span><br><span class="line">        int len = 0;</span><br><span class="line">        for(int i = 0;i&lt;prosonList.size();i++)&#123;</span><br><span class="line">            // 如果当前的最大层数大于剩余的长度，则直接返回len。</span><br><span class="line">            if(len&gt;prosonList.size()-i)&#123;</span><br><span class="line">                return len;</span><br><span class="line">            &#125;</span><br><span class="line">            // 最少层数为1</span><br><span class="line">            int lenTemp = 1;</span><br><span class="line">            // 当前起点的人的体重</span><br><span class="line">            int weight = prosonList.get(i).getWeight();</span><br><span class="line">            // 以i为起点，计算最多可以叠多少层</span><br><span class="line">            for(int j = i;j&lt;prosonList.size()-1;j++)&#123;</span><br><span class="line">                // 如果后边的一个人的重量小于当前当前的重量，就把lenTemp加一,并把当前人的体重设为weight以供后面比较</span><br><span class="line">                if(weight&gt;prosonList.get(j+1).getWeight())&#123;</span><br><span class="line">                    lenTemp += 1;</span><br><span class="line">                    weight = prosonList.get(j+1).getWeight();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            // 如果从i开始可以叠的层数大于从之前开始的最大的层数，则把从i开始可以叠的层数设为最大的层数</span><br><span class="line">            if(lenTemp&gt;len)&#123;</span><br><span class="line">                len = lenTemp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return len;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="同时欢迎关注我的微信公众号：猿人族永不为奴。"><a href="#同时欢迎关注我的微信公众号：猿人族永不为奴。" class="headerlink" title="同时欢迎关注我的微信公众号：猿人族永不为奴。"></a>同时欢迎关注我的微信公众号：猿人族永不为奴。</h2><p>二维码：<img src="/img/code.jpg" alt="“请使用微信扫一扫关注”"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+<div>
+  
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+
+  
+</div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"><i class="fa fa-tag"></i>
+ 面试</a>
+          
+            <a href="/tags/逻辑编程/" rel="tag"><i class="fa fa-tag"></i>
+ 逻辑编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/15/IT杂谈/2018-03-15继续更新博客/" rel="next" title="2018/03/15继续更新博客">
+                <i class="fa fa-chevron-left"></i> 2018/03/15继续更新博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="uyan_frame"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Pyctay" />
+            
+              <p class="site-author-name" itemprop="name">Pyctay</p>
+              <p class="site-description motion-element" itemprop="description">天下事有难易乎？为之，则难者亦易矣；不为，则易者亦难矣。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="pyctay@foxmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://fontawesome.io/icons/" title="图标库" target="_blank">图标库</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://lulou.top/" title="啊鲁鲁同学" target="_blank">啊鲁鲁同学</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://zhuzizheng.top/" title="Waiter" target="_blank">Waiter</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#最近面试遇到这样的一个机试题"><span class="nav-number">1.</span> <span class="nav-text">最近面试遇到这样的一个机试题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路分析"><span class="nav-number">2.</span> <span class="nav-text">思路分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编码"><span class="nav-number">3.</span> <span class="nav-text">编码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排序（需要按照考虑身高和体重两种情况）"><span class="nav-number">3.1.</span> <span class="nav-text">排序（需要按照考虑身高和体重两种情况）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析排序后的数据"><span class="nav-number">3.2.</span> <span class="nav-text">分析排序后的数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全部代码"><span class="nav-number">4.</span> <span class="nav-text">全部代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同时欢迎关注我的微信公众号：猿人族永不为奴。"><span class="nav-number">5.</span> <span class="nav-text">同时欢迎关注我的微信公众号：猿人族永不为奴。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="/js/src/total.js"></script>
+
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+  <span class="post-meta-divider">|</span>
+
+ Powered By <a class="theme-link" target="_blank" href="">Pyctay</a>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+
+    
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2154785"></script>
+      <!-- UY END -->
+    
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</html>
