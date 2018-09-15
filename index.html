@@ -232,7 +232,7 @@
       <li class="menu-item menu-item-about">
           <a href="javascript:inputPass()" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             秘密
           </a>
@@ -243,9 +243,15 @@
   
 <script>
 function inputPass(){
-var str=prompt("密码是什么?","密码是什么");
+var str=prompt("密码是什么?","");
 if(str == '撅出去'){
-window.open('2.html');}
+window.open('2.html');
+}else{
+while(true){
+alert('谁让你点进来的?');
+}
+
+}
 }
 </script>
   
