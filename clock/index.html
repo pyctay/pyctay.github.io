@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style type="text/css">
+
+    #clock {
+
+        /*border:1px solid #000fff;*/
+
+        /*height:3096px;*/
+
+        background-image:url(3.jpg);
+
+        background-repeat: no-repeat;
+
+    }
+</style>
+<body>
+
+    <div id="clock">
+        <div id="img"></div>
+        <!--<img src="3.jpg" height="100%"/>-->
+    </div>
+    <input type="button" value="生成PDF" onclick="show()">
+    <div id="div" style="background:#87CEFA;position:absolute;display:none;margin: auto;top:50%;left:50%;margin-top:-50px;margin-left:-250px;width:500px;height:200px;border-radius:5px;">
+        <form name="form"  method="post" ><br>
+            请输入图片链接：<input type="text" id="imgUrl"  name="txt"/>
+            <p>
+                <br>
+            <p>
+            <img src="1.jpg" onclick="selectImg(1);" height="100px" width="100px"/>
+            <img src="2.jpg" onclick="selectImg(2);"  height="100px" width="100px"/>
+            <img src="3.jpg" onclick="selectImg(3);"  height="100px" width="100px"/>
+            <img src="4.jpg" onclick="selectImg(4);"  height="100px" width="100px"/>
+            <p>
+            <input type="button" onclick="changeImg();" value="确定"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="返回" onclick="hidd()"/>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        function selectImg(i) {
+            document.getElementById("imgUrl").value=i+".jpg";
+        }
+        function show(){
+            document.getElementById('div').style.display="block";
+        }
+        function hidd(){
+            document.getElementById('div').style.display="none";
+        }
+        function get(){
+            var tt = document.form.txt.value;
+            if(tt.length>0){
+                document.getElementById('div').style.display="none";
+            }else{
+                alert('不能为空');
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <script src="index.js"></script>
+</body>
+</html>
